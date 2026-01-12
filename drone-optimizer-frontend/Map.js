@@ -3,7 +3,6 @@ import { MapContainer, TileLayer, Marker, Popup, Polyline } from 'react-leaflet'
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
-// Fix default Leaflet icon issue
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
   iconRetinaUrl:
@@ -15,14 +14,12 @@ L.Icon.Default.mergeOptions({
 });
 
 export default function DroneMap() {
-  // States
   const [locations, setLocations] = useState([]);
   const [newLocation, setNewLocation] = useState({ lat: '', lng: '', name: '' });
   const [obstacles, setObstacles] = useState([]);
   const [newObstacle, setNewObstacle] = useState({ lat: '', lng: '', name: '' });
   const [optimizedRoute, setOptimizedRoute] = useState([]);
 
-  // Fetch locations once
   useEffect(() => {
     fetch('http://localhost:3000/api/locations')
       .then(res => res.json())
@@ -30,7 +27,6 @@ export default function DroneMap() {
       .catch(err => console.error('Error fetching locations:', err));
   }, []);
 
-  // Fetch obstacles once
   useEffect(() => {
     fetch('http://localhost:3000/api/obstacles')
       .then(res => res.json())
@@ -38,7 +34,6 @@ export default function DroneMap() {
       .catch(err => console.error('Error fetching obstacles:', err));
   }, []);
 
-  // Add location
   const handleAddLocation = () => {
     const { lat, lng, name } = newLocation;
     if (!lat || !lng || !name) {
@@ -58,7 +53,6 @@ export default function DroneMap() {
       .catch(err => console.error('Error adding location:', err));
   };
 
-  // Add obstacle
   const handleAddObstacle = () => {
     const { lat, lng, name } = newObstacle;
     if (!lat || !lng || !name) {
@@ -78,7 +72,6 @@ export default function DroneMap() {
       .catch(err => console.error('Error adding obstacle:', err));
   };
 
-  // Call optimize API and update optimizedRoute
   const handleOptimizeRoute = () => {
     if (locations.length < 2) {
       alert('Add at least two locations to optimize route.');
@@ -218,3 +211,4 @@ export default function DroneMap() {
     </div>
   );
 }
+
