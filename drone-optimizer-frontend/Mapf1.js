@@ -3,8 +3,7 @@ import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
-// Fix default icon issue in Leaflet
-delete L.Icon.Default.prototype._getIconUrl;
+elete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
   iconRetinaUrl:
     'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon-2x.png',
@@ -25,7 +24,7 @@ export default function DroneMap() {
       .catch(err => console.error('Error fetching locations:', err));
   }, []);
 
-  // 🔥 Missing: Add Location Handler
+
   const handleAddLocation = () => {
     const { lat, lng, name } = newLocation;
     if (!lat || !lng || !name) {
@@ -110,3 +109,4 @@ export default function DroneMap() {
     </div>
   );
 }
+
