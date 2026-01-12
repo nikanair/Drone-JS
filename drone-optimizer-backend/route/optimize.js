@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-// Haversine formula to calculate distance between two lat/lng points
+// -- -- >Haversine formula to calculate distance between two lat/lng points
 function getDistance(a, b) {
   const R = 6371; // km
   const dLat = (b.lat - a.lat) * Math.PI / 180;
@@ -51,3 +51,4 @@ router.post('/', (req, res) => {
 });
 
 module.exports = router;
+
