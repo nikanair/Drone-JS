@@ -3,7 +3,6 @@ import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
-// Fix default Leaflet icon issue
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
   iconRetinaUrl:
@@ -16,16 +15,13 @@ L.Icon.Default.mergeOptions({
 
 export default function DroneMap() {
     
-    // Locations state
   console.log('Rendering DroneMap component...');
   const [locations, setLocations] = useState([]);
   const [newLocation, setNewLocation] = useState({ lat: '', lng: '', name: '' });
 
-  // Obstacles state
   const [obstacles, setObstacles] = useState([]);
   const [newObstacle, setNewObstacle] = useState({ lat: '', lng: '', name: '' });
 
-  // Fetch locations once on mount
   useEffect(() => {
     fetch('http://localhost:3000/api/locations')
       .then(res => res.json())
@@ -33,7 +29,6 @@ export default function DroneMap() {
       .catch(err => console.error('Error fetching locations:', err));
   }, []);
 
-  // Fetch obstacles once on mount
   useEffect(() => {
     fetch('http://localhost:3000/api/obstacles')
       .then(res => res.json())
@@ -41,7 +36,6 @@ export default function DroneMap() {
       .catch(err => console.error('Error fetching obstacles:', err));
   }, []);
 
-  // Add new location handler
   const handleAddLocation = () => {
     const { lat, lng, name } = newLocation;
     if (!lat || !lng || !name) {
@@ -65,7 +59,6 @@ export default function DroneMap() {
       .catch(err => console.error('Error adding location:', err));
   };
 
-  // Add new obstacle handler
   const handleAddObstacle = () => {
     const { lat, lng, name } = newObstacle;
     if (!lat || !lng || !name) {
@@ -177,7 +170,7 @@ export default function DroneMap() {
             position={[obs.lat, obs.lng]}
             icon={L.divIcon({
               className: 'custom-emoji-marker',
-              html: `<div style="font-size: 24px;">🚧</div>`, // construction emoji for obstacles
+              html: `<div style="font-size: 24px;">🚧</div>`,
               iconSize: [30, 30],
               iconAnchor: [15, 15],
             })}
@@ -189,3 +182,4 @@ export default function DroneMap() {
     </div>
   );
 }
+
